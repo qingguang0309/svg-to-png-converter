@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG to PNG Converter - Mermaid & SVG 转换工具</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎨 SVG to PNG Converter</h1>
+            <p>支持Mermaid图表和SVG文件转换为高质量PNG图片</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="converter-wrapper">
+            <div class="input-section">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="mermaid">Mermaid代码</button>
+                    <button class="tab-btn" data-tab="svg">上传SVG</button>
+                </div>
+
+                <div class="tab-content active" id="mermaid-tab">
+                    <textarea id="mermaid-input" placeholder="在此输入Mermaid代码...">flowchart TD
+    A([开始])
+    B[处理数据]
+    C{判断条件}
+    D[操作1]
+    E[操作2]
+    F([结束])
+    
+    A --> B
+    B --> C
+    C -->|是| D
+    C -->|否| E
+    D --> F
+    E --> F</textarea>
+                    <button class="btn btn-primary" onclick="renderMermaid()">🎯 渲染图表</button>
+                </div>
+
+                <div class="tab-content" id="svg-tab">
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="svg-upload" accept=".svg" hidden>
+                        <div class="upload-content">
+                            <span class="upload-icon">📁</span>
+                            <p>点击或拖拽SVG文件到此处</p>
+                            <button class="btn btn-secondary" onclick="document.getElementById('svg-upload').click()">选择文件</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <h3>预览</h3>
+                    <div class="controls">
+                        <label>
+                            分辨率倍数:
+                            <select id="scale-select">
+                                <option value="1">1x</option>
+                                <option value="2" selected>2x (推荐)</option>
+                                <option value="3">3x</option>
+                                <option value="4">4x</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-success" onclick="exportToPNG()">💾 导出PNG</button>
+                    </div>
+                </div>
+                <div id="preview-area">
+                    <div class="placeholder">
+                        <span class="placeholder-icon">🖼️</span>
+                        <p>图表预览将显示在这里</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made with ❤️ | <a href="https://github.com/[your-username]/svg-to-png-converter" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="js/converter.js"></script>
+</body>
+</html>
